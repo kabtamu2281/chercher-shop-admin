@@ -1,0 +1,33 @@
+name: Chercher Shop CI & Build Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci || npm install
+
+    - name: TypeScript Typecheck & Lint
+      run: npm run lint
+
+    - name: Production Applet Build
+      run: npm run build
+
+    - name: Verify Distribution Files
+      run: test -d dist && ls -la dist/

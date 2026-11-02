@@ -1,0 +1,8 @@
+{
+  "name": "Chercher Building Material Retail Shop",
+  "description": "Comprehensive management system and 3D spatial warehouse for Chercher Building Material Retail Shop in Ethiopia, featuring inventory control, POS, customer credit, and financial reporting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

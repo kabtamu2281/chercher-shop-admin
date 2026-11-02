@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Chercher Building Material Retail Shop</title>
+    <meta name="description" content="Comprehensive management system and 3D spatial warehouse for Chercher Building Material Retail Shop in Ethiopia, featuring inventory control, POS, customer credit, and financial reporting." />
+    <meta property="og:title" content="Chercher Building Material Retail Shop" />
+    <meta property="og:description" content="Comprehensive management system and 3D spatial warehouse for Chercher Building Material Retail Shop in Ethiopia, featuring inventory control, POS, customer credit, and financial reporting." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#1e293b" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              kpax: {
+                50: '#f0f7ff',
+                100: '#e0effe',
+                500: '#0284c7',
+                600: '#0369a1',
+                700: '#075985',
+                800: '#0c4a6e',
+                900: '#082f49',
+                gold: '#f59e0b',
+                ethiopiaGreen: '#16a34a',
+                ethiopiaYellow: '#eab308',
+                ethiopiaRed: '#dc2626'
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'Noto Sans Ethiopic', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="bg-slate-950 text-slate-100 overflow-hidden select-none">
+    <!-- PWA 2D UI Container -->
+    <div id="pwa-container" class="relative z-30 w-full h-full flex flex-col pointer-events-auto">
+      <!-- App Shell rendered dynamically -->
+    </div>
+
+    <!-- 3D XR Scene Canvas mounted by XR Blocks in root -->
+    <div id="root" class="fixed inset-0 z-10 pointer-events-none"></div>
+
+    <script>
+      // Register Service Worker for offline PWA support
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then((reg) => {
+            console.log('[Chercher PWA] Service Worker registered successfully', reg.scope);
+          }).catch((err) => {
+            console.warn('[Chercher PWA] Service Worker registration failed:', err);
+          });
+        });
+      }
+
+      // Handle PWA installation prompt
+      window.deferredPrompt = null;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPrompt = e;
+        window.dispatchEvent(new CustomEvent('pwa-prompt-available'));
+      });
+      window.addEventListener('appinstalled', () => {
+        window.deferredPrompt = null;
+        window.dispatchEvent(new CustomEvent('pwa-app-installed'));
+      });
+    </script>
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>
