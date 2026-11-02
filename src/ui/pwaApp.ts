@@ -249,17 +249,17 @@ export class PwaApp {
                 </span>
               ` : ''}
 
-              <!-- Download Ready App ZIP Button -->
+              <!-- Download Ready App ZIP Button (Vivid & Always Visible) -->
               <a 
                 href="/chercher-shop-admin.zip" 
                 download="chercher-shop-admin.zip" 
                 id="btn-top-download-zip" 
-                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-sky-500/40 bg-sky-500/15 hover:bg-sky-500/25 text-sky-200 text-xs transition font-semibold shadow-sm group" 
-                title="Download Standalone Chercher Shop ZIP Package (Full Source, Docker & Documentation - 104 KB)"
+                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white text-xs transition font-bold shadow-md shadow-sky-600/30 border border-sky-400/40 group cursor-pointer" 
+                title="Click to Download Chercher Shop Standalone ZIP Package (Source, Docker, Catalog & Docs - 108 KB)"
               >
-                <span class="material-symbols-outlined text-base text-sky-400 group-hover:scale-110 transition-transform">folder_zip</span>
-                <span class="hidden xl:inline">Download ZIP</span>
-                <span class="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/30 text-sky-200 font-mono font-bold hidden 2xl:inline">104 KB</span>
+                <span class="material-symbols-outlined text-base text-amber-300">download</span>
+                <span class="font-extrabold tracking-wide">Download App</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-black/30 text-sky-200 font-mono font-bold hidden md:inline">ZIP</span>
               </a>
 
               <!-- Install App Button (PWA) -->
@@ -456,7 +456,7 @@ export class PwaApp {
         <div class="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-sky-950/40 to-slate-900 border border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-              <span>Ethiopian Building Materials Command Center</span>
+              <span>Chercher Building Material Command Center</span>
               <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Live ERP</span>
             </h2>
             <p class="text-sm text-slate-400 mt-1">Real-time stock valuation, sales, COGS, customer credit and supplier liabilities in Ethiopian Birr.</p>
@@ -470,6 +470,66 @@ export class PwaApp {
               <span class="material-symbols-outlined text-lg">view_in_ar</span>
               <span>3D Yard View</span>
             </button>
+          </div>
+        </div>
+
+        <!-- DOWNLOAD APP & INSTALLATION HERO BANNER -->
+        <div class="p-5 md:p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-sky-950/70 to-slate-900 border-2 border-sky-500/40 shadow-2xl relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-44 h-44 bg-sky-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1.5 animate-pulse">
+                  <span class="material-symbols-outlined text-sm text-amber-400">download_for_offline</span>
+                  <span>DOWNLOADABLE STANDALONE APP READY</span>
+                </span>
+                <span class="text-xs text-sky-400 font-mono font-bold bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">108 KB • Full Package</span>
+              </div>
+              <h3 class="text-xl md:text-2xl font-black text-white tracking-tight">
+                Download Chercher Building Material Retail Shop
+              </h3>
+              <p class="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
+                Download the complete standalone application package with full TypeScript source code, Docker configs, Nginx setup, 150-SKU Ethiopian hardware catalog, and 3D XR warehouse. Or install directly to your device home screen with 1 click.
+              </p>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+              <!-- Direct 1-Click ZIP Download Button -->
+              <a 
+                href="/chercher-shop-admin.zip" 
+                download="chercher-shop-admin.zip" 
+                id="btn-dash-download-zip" 
+                class="px-5 py-3 rounded-xl bg-gradient-to-r from-sky-600 via-sky-500 to-emerald-600 hover:from-sky-500 hover:to-emerald-500 text-white font-extrabold text-sm shadow-xl shadow-sky-600/30 flex items-center gap-2 transition hover:scale-105 active:scale-95 border border-sky-400/50 cursor-pointer"
+                title="Direct Download of Standalone App ZIP"
+              >
+                <span class="material-symbols-outlined text-lg text-amber-300">download</span>
+                <span>Download App ZIP (108 KB)</span>
+              </a>
+
+              <!-- Install PWA Button -->
+              <button 
+                id="btn-dash-install-pwa" 
+                class="px-4 py-3 rounded-xl ${
+                  this.isPwaInstalled
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 cursor-default'
+                    : 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold shadow-lg shadow-amber-500/25 hover:scale-105'
+                } text-xs font-bold transition flex items-center gap-1.5"
+              >
+                <span class="material-symbols-outlined text-base">${this.isPwaInstalled ? 'verified' : 'install_mobile'}</span>
+                <span>${this.isPwaInstalled ? 'App Installed' : 'Install on Phone / PC'}</span>
+              </button>
+
+              <!-- GitHub Repo Link -->
+              <a 
+                href="https://github.com/kabtamu2281/chercher-shop-admin" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="px-3.5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold text-xs border border-slate-700 flex items-center gap-1.5 transition"
+              >
+                <span class="material-symbols-outlined text-base text-sky-400">code</span>
+                <span>GitHub Repo</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -3660,8 +3720,9 @@ volumes:
       }
     });
 
-    // PWA Installation Buttons (Top Navbar, Desktop Sidebar, Mobile Drawer, Admin Tab)
+    // PWA Installation Buttons (Dashboard Banner, Top Navbar, Desktop Sidebar, Mobile Drawer, Admin Tab)
     const handleInstallClick = () => this.triggerPwaInstall();
+    this.container.querySelector('#btn-dash-install-pwa')?.addEventListener('click', handleInstallClick);
     this.container.querySelector('#btn-top-install-app')?.addEventListener('click', handleInstallClick);
     this.container.querySelector('#btn-sidebar-install-app')?.addEventListener('click', handleInstallClick);
     this.container.querySelector('#btn-mobile-install-app')?.addEventListener('click', handleInstallClick);
@@ -3669,8 +3730,9 @@ volumes:
 
     // Download ZIP Notification handlers
     const handleDownloadClick = () => {
-      this.showToast('Downloading Chercher Shop Standalone ZIP Package (104 KB)...', 'download');
+      this.showToast('Downloading Chercher Shop Standalone ZIP Package (108 KB)...', 'download');
     };
+    this.container.querySelector('#btn-dash-download-zip')?.addEventListener('click', handleDownloadClick);
     this.container.querySelector('#btn-top-download-zip')?.addEventListener('click', handleDownloadClick);
     this.container.querySelector('#btn-sidebar-download-zip')?.addEventListener('click', handleDownloadClick);
     this.container.querySelector('#btn-mobile-download-zip')?.addEventListener('click', handleDownloadClick);
