@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   xb.add(warehouseScene);
 
   const options = new xb.Options();
-  options.setAppTitle('Kpax Shop');
+  options.setAppTitle('Chercher Building Material Retail Shop');
   options.setAppDescription('Ethiopian Building Materials ERP & 3D Spatial Warehouse');
   options.reticles.enabled = true;
   options.enableHands();

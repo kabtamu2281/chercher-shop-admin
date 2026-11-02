@@ -3,11 +3,13 @@ import { MusicService } from '../services/musicService';
 import { QrScannerService } from '../services/qrScannerService';
 import { Customer, Expense, PaymentMethod, Product, Sale, Supplier, SupportedLanguage, UserRole } from '../types';
 import { formatETB, translations } from '../utils/i18n';
+import { InstallAppButton } from './components/InstallAppButton';
 
 export class PwaApp {
   private db = DatabaseService.getInstance();
   private music = MusicService.getInstance();
   private qrScanner = QrScannerService.getInstance();
+  private installButton = new InstallAppButton();
 
   private container: HTMLElement;
   private currentTab:
@@ -262,21 +264,8 @@ export class PwaApp {
                 <span class="text-[10px] px-1.5 py-0.5 rounded bg-black/30 text-sky-200 font-mono font-bold hidden md:inline">ZIP</span>
               </a>
 
-              <!-- Install App Button (PWA) -->
-              <button 
-                id="btn-top-install-app" 
-                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border ${
-                  this.isPwaInstalled 
-                    ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 cursor-default' 
-                    : 'border-amber-500/40 bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 animate-pulse'
-                } text-xs transition font-bold shadow-sm" 
-                title="${this.isPwaInstalled ? 'Chercher App is installed' : 'Install Chercher App onto device home screen'}"
-              >
-                <span class="material-symbols-outlined text-base ${this.isPwaInstalled ? 'text-emerald-400' : 'text-amber-400'}">
-                  ${this.isPwaInstalled ? 'check_circle' : 'install_mobile'}
-                </span>
-                <span class="hidden sm:inline">${this.isPwaInstalled ? 'Installed' : 'Install App'}</span>
-              </button>
+              <!-- Install App UI Component (PWA) using 'pwa-prompt-available' -->
+              ${this.installButton.renderHTML()}
 
               <!-- QR Scanner Quick Button -->
               <button id="btn-top-qr-scanner" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 text-xs transition font-medium shadow-sm shadow-emerald-500/10" title="Scan Product Barcode or QR Code">
@@ -3749,36 +3738,35 @@ volumes:
     });
   }
 
-  // Trigger PWA Installation flow or platform-specific guide
+  // Trigger PWA Installation flow using InstallAppButton component
   private triggerPwaInstall() {
-    const isIos = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) && !(window as any).MSStream;
-    if (isIos && !this.isPwaInstalled) {
-      this.showIosInstallGuide = true;
-      this.render();
-      return;
-    }
-
-    const deferred = (window as any).deferredPrompt;
-    if (deferred) {
-      deferred.prompt();
-      deferred.userChoice.then((choice: any) => {
-        if (choice.outcome === 'accepted') {
-          this.isPwaInstalled = true;
-          this.showToast('Thank you for installing Chercher Shop!', 'check_circle');
-        } else {
-          this.showToast('Installation prompt was dismissed.', 'info');
-        }
-        (window as any).deferredPrompt = null;
+    this.installButton.triggerInstall(
+      (platform) => {
+        this.isPwaInstalled = true;
+        this.showToast('Thank you for installing Chercher Building Material Retail Shop!', 'check_circle');
         this.render();
-      });
-    } else if (this.isPwaInstalled) {
-      this.showToast('Chercher App is already installed and running!', 'check_circle');
-    } else {
-      this.showToast(
-        'To install: Tap browser menu (⋮) -> "Install App" or "Add to Home screen", or click the install icon in the URL bar.',
-        'install_mobile',
-      );
-    }
+      },
+      () => {
+        this.showToast('Installation prompt was dismissed.', 'info');
+      },
+      () => {
+        const isIos = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()) && !(window as any).MSStream;
+        if (isIos && !this.isPwaInstalled) {
+          this.showIosInstallGuide = true;
+          this.render();
+          return;
+        }
+
+        if (this.isPwaInstalled) {
+          this.showToast('Chercher App is already installed and running!', 'check_circle');
+        } else {
+          this.showToast(
+            'To install: Tap browser menu (⋮) -> "Install App" or "Add to Home screen", or click the install icon in the URL bar.',
+            'install_mobile',
+          );
+        }
+      }
+    );
   }
 
   // Render iOS Safari 2-step Add to Home Screen Modal
